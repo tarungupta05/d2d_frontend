@@ -9,7 +9,13 @@ export default defineConfig(({ mode }) => ({
     host: "::",
     port: 8080,
     fs: {
-      allow: ["./client", "./shared"],
+      allow: [
+        "./client",
+        "./shared",
+        // ✅ Add your full OneDrive path here:
+        "C:/Users/Dell/OneDrive/Documents/D2D/frontend app builder io 1st/node_modules",
+        "./node_modules",
+      ],
       deny: [".env", ".env.*", "*.{crt,pem}", "**/.git/**", "server/**"],
     },
   },
