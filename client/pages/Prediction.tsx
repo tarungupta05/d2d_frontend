@@ -9,7 +9,8 @@ import { Feature } from "ol";
 import Point from "ol/geom/Point";
 import VectorSource from "ol/source/Vector";
 import VectorLayer from "ol/layer/Vector";
-import { Icon, Style } from "ol/style";
+import { Icon, Style, Stroke, Fill } from "ol/style";
+import GeoJSON from "ol/format/GeoJSON";
 
 export default function InteractiveMap() {
   const mapRef = useRef<HTMLDivElement>(null);
@@ -19,21 +20,51 @@ export default function InteractiveMap() {
   useEffect(() => {
     if (!mapRef.current) return;
 
+    const uttrakhandCenter = fromLonLat([79.2, 30.0]);
+
     const map = new Map({
       target: mapRef.current,
-      layers: [new TileLayer({ source: new OSM() })],
+      layers: [
+        new TileLayer({
+          source: new OSM(),
+        }),
+      ],
       view: new View({
-        center: fromLonLat([78.9, 22.5]),
-        zoom: 5,
+        center: uttrakhandCenter,
+        zoom: 7,    // slightly zoomed out
+        minZoom: 7, // cannot zoom out more
+        maxZoom: 18,
       }),
       controls: defaultControls({ attribution: false, zoom: true }),
     });
 
-    // Vector layer for marker
+    // Load Uttarakhand district boundaries
+    fetch("/uttarakhand_districts.geojson")
+      .then((res) => res.json())
+      .then((geojson) => {
+        const districtLayer = new VectorLayer({
+          source: new VectorSource({
+            features: new GeoJSON().readFeatures(geojson, {
+              featureProjection: "EPSG:3857",
+            }),
+          }),
+          style: new Style({
+            stroke: new Stroke({
+              color: "black",
+              width: 2,
+            }),
+            fill: new Fill({
+              color: "rgba(255, 255, 255, 0.1)",
+            }),
+          }),
+        });
+        map.addLayer(districtLayer);
+      })
+      .catch((err) => console.error("GeoJSON load error:", err));
+
+    // Vector layer for marker (click coordinates)
     const vectorSource = new VectorSource<Feature<Point>>();
-    const vectorLayer = new VectorLayer({
-      source: vectorSource,
-    });
+    const vectorLayer = new VectorLayer({ source: vectorSource });
     map.addLayer(vectorLayer);
     setMarkerLayer(vectorLayer);
 
@@ -41,11 +72,8 @@ export default function InteractiveMap() {
       const [lng, lat] = toLonLat(evt.coordinate);
       setCoords({ lat, lng });
 
-      // Add marker
       vectorSource.clear();
-      const marker = new Feature({
-        geometry: new Point(evt.coordinate),
-      });
+      const marker = new Feature({ geometry: new Point(evt.coordinate) });
       marker.setStyle(
         new Style({
           image: new Icon({
@@ -62,8 +90,6 @@ export default function InteractiveMap() {
   }, []);
 
   return (
-
-    // /////////
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 p-8">
       <div className="max-w-6xl mx-auto space-y-8">
         {/* Header */}
@@ -72,13 +98,12 @@ export default function InteractiveMap() {
             Prediction Models
           </h1>
           <p className="text-xl text-slate-300">
-            Click anywhere in India to get landslide probability and
-            environmental metrics.
+            Click anywhere in Uttarakhand to get landslide probability and environmental metrics.
           </p>
         </div>
-
       </div>
-    <div className="max-w-6xl w-full bg-slate-800 rounded-2xl shadow-xl overflow-hidden p-4">
+
+      <div className="max-w-6xl w-full bg-slate-800 rounded-2xl shadow-xl overflow-hidden p-4">
         <div
           ref={mapRef}
           style={{ width: "100%", height: "70vh", borderRadius: "12px" }}
@@ -90,11 +115,5 @@ export default function InteractiveMap() {
         )}
       </div>
     </div>
-
-
-
-
-
-
   );
 }
