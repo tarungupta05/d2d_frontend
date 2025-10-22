@@ -20,10 +20,10 @@ export default function Prediction() {
   const [loading, setLoading] = useState(false);
 
   const featureNames = [
-    "rain_day_1",
-    "rain_day_3",
-    "rain_day_7",
-    "rain_day_30",
+    // "rain_day_1",
+    // "rain_day_3",
+    // "rain_day_7",
+    // "rain_day_30",
     "NDVI",
     "TWI",
     "aspect_deg",
@@ -98,7 +98,7 @@ export default function Prediction() {
     // Cursor changes
     map.getTargetElement().style.cursor = "grab";
     map.on("pointerdrag", () => map.getTargetElement().style.cursor = "grabbing");
-    map.on("pointerup", () => map.getTargetElement().style.cursor = "grab");
+    // map.on("pointerup", () => map.getTargetElement().style.cursor = "grab");
     map.on("pointermove", (evt) => {
       const hit = map.hasFeatureAtPixel(map.getEventPixel(evt.originalEvent));
       map.getTargetElement().style.cursor = hit ? "pointer" : "grab";
@@ -134,7 +134,7 @@ export default function Prediction() {
   };
 
   const getRisk = (p) => {
-    if (p >= 0.7) return { label: "High", color: "text-red-500" };
+    if (p >= 0.55) return { label: "High", color: "text-red-500" };
     if (p >= 0.4) return { label: "Moderate", color: "text-yellow-400" };
     return { label: "Low", color: "text-green-400" };
   };
