@@ -17,6 +17,11 @@ export function createServer() {
     res.json({ message: ping });
   });
 
+  // health check
+  app.get("/health", (_req, res) => {
+  res.status(200).json({ status: "alive" });
+});
+
   app.get("/api/demo", handleDemo);
 
   return app;

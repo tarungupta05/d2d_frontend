@@ -15,7 +15,7 @@ export default function Inventory() {
         {/* Embedded Map */}
         <div className="w-full h-[75vh] rounded-lg overflow-hidden shadow-lg">
           <iframe
-           src="https://tavgun-k.users.earthengine.app/view/susceptibiltymodel"  // <-- replace with your map website URL
+           src="https://tavgun-k.users.earthengine.app/view/landslideindia"  // <-- replace with your map website URL
             title="Landslide Map"
             className="w-full h-full border-0"
             allowFullScreen

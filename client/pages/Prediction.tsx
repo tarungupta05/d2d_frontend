@@ -135,7 +135,7 @@ export default function Prediction() {
 
   const getRisk = (p) => {
     if (p >= 0.55) return { label: "High", color: "text-red-500" };
-    if (p >= 0.4) return { label: "Moderate", color: "text-yellow-400" };
+    if (p >= 0.45) return { label: "Moderate", color: "text-yellow-400" };
     return { label: "Low", color: "text-green-400" };
   };
 
