@@ -124,6 +124,8 @@ export default function Prediction() {
       });
 
       const result = await res.json();
+      console.log(result); 
+      result.features = result.features.slice(4);
       setData(result);
     } catch (err) {
       console.error(err);

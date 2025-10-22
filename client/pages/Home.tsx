@@ -1,5 +1,6 @@
 import { ArrowRight, MapPin, Zap, Shield, BarChart3, AlertTriangle } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Lock } from "lucide-react";
 
 export default function Home() {
   return (
@@ -68,6 +69,14 @@ export default function Home() {
               <p className="text-slate-300 text-sm">Track and manage resources across geospatial locations with precision.</p>
             </div>
 
+
+            <div className="p-6 bg-slate-800/50 rounded-xl shadow-md hover:shadow-lg transition-shadow border border-slate-700 hover:border-blue-600">
+            <div className="w-12 h-12 bg-blue-900/30 rounded-lg flex items-center justify-center mb-4 border border-blue-700">
+            <Lock className="text-blue-400" size={24} /> {/* Lock symbol for safety */}
+         </div>
+         <h3 className="text-lg font-semibold text-white mb-2">Safety and Preparedness</h3>
+         <p className="text-slate-300 text-sm"> Stay prepared for landslides with safety tips and evacuation guidelines</p>
+          </div>
 
           </div>
         </div>

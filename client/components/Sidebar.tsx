@@ -22,7 +22,7 @@ const Sidebar = () => {
     { name: "Susceptibility", path: "/susceptibility", icon: AlertTriangle },
     { name: "Prediction", path: "/prediction", icon: TrendingUp },
     { name: "Inventory", path: "/inventory", icon: Package },
-    // { name: "Safety & Preparedness", path: "/safety", icon: Shield },
+    { name: "Safety & Preparedness", path: "/safety", icon: Shield },
   ];
 
   const isActive = (path: string) => location.pathname === path;
