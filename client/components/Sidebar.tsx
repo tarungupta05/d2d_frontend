@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
+
 import {
   Home,
   TrendingUp,
@@ -54,12 +55,14 @@ const Sidebar = () => {
         {/* Logo/Branding */}
         <div className="p-6 border-b border-slate-700">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-              <MapPin size={24} className="text-white" />
-            </div>
+              <img
+      src="/logo_lara.png"
+      alt="LaRA Logo"
+      className="w-14 h-14 rounded-lg object-cover"
+    />
             <div>
-              <h1 className="text-xl font-bold">GeoMap</h1>
-              <p className="text-xs text-blue-300">Engineering Suite</p>
+              <h1 className="text-xl font-bold">LaRA</h1>
+              <p className="text-xs text-blue-300">Geospatial Engineering</p>
             </div>
           </div>
         </div>

@@ -113,7 +113,7 @@ export default function Prediction() {
     setData(null);
 
     try {
-      const res = await fetch("http://localhost:3001/predict", {
+      const res = await fetch("https://backend-1-mv91.onrender.com/predict", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
