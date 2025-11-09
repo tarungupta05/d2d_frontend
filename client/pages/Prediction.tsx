@@ -127,7 +127,7 @@ export default function Prediction() {
       "Content-Type": "application/json",
     },
     // ✅ stringify only here
-    body: JSON.stringify(payload),
+    body: JSON.stringify(val),
     mode: "cors", // ensures browser allows cross-origin
   });
 
