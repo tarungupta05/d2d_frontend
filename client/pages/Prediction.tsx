@@ -120,10 +120,16 @@ export default function Prediction() {
         });
       console.log("request send- ",val);
       const res = await fetch("https://backend-1-mv91.onrender.com/predict", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: val ,
-      });
+    method: "POST",
+    // ✅ 'Accept' helps backend know it's JSON
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+    },
+    // ✅ stringify only here
+    body: JSON.stringify(payload),
+    mode: "cors", // ensures browser allows cross-origin
+  });
 
       const result = await res.json();
       console.log(result); 
