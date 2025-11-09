@@ -113,14 +113,16 @@ export default function Prediction() {
     setData(null);
 
     try {
-      const res = await fetch("https://backend-1-mv91.onrender.com/predict", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+      const val= JSON.stringify({
           lat: coords.lat,
           lon: coords.lon,
           date: new Date().toISOString().split("T")[0],
-        }),
+        });
+      console.log("request send- ",val);
+      const res = await fetch("https://backend-1-mv91.onrender.com/predict", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: val ,
       });
 
       const result = await res.json();
