@@ -119,7 +119,7 @@ export default function Prediction() {
           date: new Date().toISOString().split("T")[0],
         });
       console.log("request send- ",val);
-      const res = await fetch("https://backend-1-mv91.onrender.com/predict", {
+      const res = await fetch("https://backend-tt07.onrender.com/predict", {
     method: "POST",
     // ✅ 'Accept' helps backend know it's JSON
     headers: {
@@ -127,7 +127,7 @@ export default function Prediction() {
       "Content-Type": "application/json",
     },
     // ✅ stringify only here
-    body: JSON.stringify(val),
+    body: val
     mode: "cors", // ensures browser allows cross-origin
   });
 
